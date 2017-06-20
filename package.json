@@ -80,6 +80,7 @@
     "db:migration": "node tools/db.js migration",
     "db:seed": "node tools/db.js seed",
     "deploy": "node tools/publish.js",
+    "makeimage": "node tools/publishimage.js",
     "start": "node tools/run.js"
   }
 }
