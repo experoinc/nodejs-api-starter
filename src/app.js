@@ -51,7 +51,7 @@ const app = express();
 app.set('trust proxy', 'loopback');
 
 app.use(cors({
-  origin(origin, cb) {
+  origin (origin, cb) {
     const whitelist = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [];
     cb(null, whitelist.includes(origin));
   },
@@ -107,8 +107,10 @@ if (process.env.NODE_ENV !== 'production') {
   // A route for testing authentication/authorization
   app.get('/', (req, res) => {
     if (req.user) {
+      //eslint-disable-next-line
       res.send(`<p>${req.t('Welcome, {{user}}!', { user: req.user.displayName })} (<a href="javascript:fetch('/login/clear', { method: 'POST', credentials: 'include' }).then(() => window.location = '/')">${req.t('log out')}</a>)</p>`);
-    } else {
+    }
+    else {
       res.send(`<p>${req.t('Welcome, guest!')} (<a href="/login/facebook">${req.t('sign in')}</a>)</p>`);
     }
   });

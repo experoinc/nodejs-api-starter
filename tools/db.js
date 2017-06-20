@@ -58,7 +58,8 @@ module.exports = task('db', async () => {
         db = knex(config);
         await db.migrate.latest(config);
     }
-  } finally {
+  }
+  finally {
     if (db) {
       await db.destroy();
     }

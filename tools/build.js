@@ -78,20 +78,22 @@ module.exports = task('build', ({ watch = false, onComplete } = {}) => new Promi
               sourceFileName: path.relative('./build', src),
             });
             // Enable source maps
-            const data = (src === 'src/server.js' ?
-              'require(\'source-map-support\').install(); ' : '') + code +
+            const data = (src === 'src/server.js'
+              ? 'require(\'source-map-support\').install(); ' : '') + code +
               (map ? `\n//# sourceMappingURL=${path.basename(src)}.map\n` : '');
             fs.writeFileSync(dest, data, 'utf8');
             console.log(src, '->', dest);
             if (map) fs.writeFileSync(`${dest}.map`, JSON.stringify(map), 'utf8');
-          } else if (/^src\/emails\/.+/.test(src)) {
+          }
+          else if (/^src\/emails\/.+/.test(src)) {
             if (/^src\/emails\/.+\/.+\.hbs$/.test(src)) {
               const template = compileEmail(src);
               const destJs = dest.replace(/\.hbs$/, '.js');
               fs.writeFileSync(destJs, `module.exports = ${template};`, 'utf8');
               console.log(src, '->', destJs);
             }
-          } else if (src.startsWith('src')) {
+          }
+          else if (src.startsWith('src')) {
             const data = fs.readFileSync(src, 'utf8');
             fs.writeFileSync(dest, data, 'utf8');
             console.log(src, '->', dest);
@@ -108,7 +110,8 @@ module.exports = task('build', ({ watch = false, onComplete } = {}) => new Promi
         default:
           // Skip
       }
-    } catch (err) {
+    }
+    catch (err) {
       console.log(err.message);
     }
   });
@@ -120,7 +123,7 @@ module.exports = task('build', ({ watch = false, onComplete } = {}) => new Promi
     resolve();
   });
 
-  function cleanup() {
+  function cleanup () {
     if (watcher) {
       watcher.close();
       watcher = null;

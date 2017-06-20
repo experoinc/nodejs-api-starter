@@ -34,18 +34,18 @@ const loginProviders = [
 
 // '/about' => ''
 // http://localhost:3000/some/page => http://localhost:3000
-function getOrigin(url: string) {
+function getOrigin (url: string) {
   if (!url || url.startsWith('/')) return '';
   return (x => `${String(x.protocol)}//${String(x.host)}`)(URL.parse(url));
 }
 
 // '/about' => `true` (all relative URL paths are allowed)
 // 'http://localhost:3000/about' => `true` (but only if its origin is whitelisted)
-function isValidReturnURL(url: string) {
+function isValidReturnURL (url: string) {
   if (url.startsWith('/')) return true;
   const whitelist = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [];
-  return validator.isURL(url, { require_protocol: true, protocols: ['http', 'https'] })
-    && whitelist.includes(getOrigin(url));
+  return validator.isURL(url, { require_protocol: true, protocols: ['http', 'https'] }) &&
+    whitelist.includes(getOrigin(url));
 }
 
 // Generates a URL for redirecting a user to upon successfull authentication.
@@ -56,7 +56,7 @@ function isValidReturnURL(url: string) {
 // http://localhost:8080/login/facebook/return and finally, user is being redirected
 // to http://localhost:3000/?sessionID=xxx where front-end middleware can save that
 // session ID into cookie (res.cookie.sid = req.query.sessionID).
-function getSuccessRedirect(req) {
+function getSuccessRedirect (req) {
   const url = req.query.return || req.body.return || '/';
   if (!isValidReturnURL(url)) return '/';
   if (!getOrigin(url)) return url;

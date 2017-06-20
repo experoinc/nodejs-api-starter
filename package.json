@@ -68,6 +68,7 @@
   },
   "scripts": {
     "lint": "eslint src test tools migrations",
+    "lint:fix": "npm run lint -- --fix",
     "check": "flow check",
     "test": "NODE_ENV=test mocha --compilers js:babel-register",
     "test:watch": "NODE_ENV=test mocha --compilers js:babel-register --reporter min --watch",

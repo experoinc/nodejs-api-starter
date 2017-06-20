@@ -20,7 +20,7 @@ export default new GraphQLObjectType({
 
     verified: {
       type: new GraphQLNonNull(GraphQLBoolean),
-      resolve(parent) {
+      resolve (parent) {
         return !!parent.verified;
       },
     },

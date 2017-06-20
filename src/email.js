@@ -31,7 +31,7 @@ const transporter = nodemailer.createTransport(config, { from });
 // Register i18n translation helper, for example: {{t "Welcome, {{user}}" user="John"}}
 handlebars.registerHelper('t', (key, options) => options.data.root.t(key, options.hash));
 
-function loadTemplate(filename) {
+function loadTemplate (filename) {
   const m = new module.constructor();
   // eslint-disable-next-line no-underscore-dangle
   m._compile(fs.readFileSync(filename, 'utf8'), filename);
@@ -65,7 +65,7 @@ export default {
    * @param {string} name The name of a template to render. See `src/emails`.
    * @param {object} context Context variables.
    */
-  render(name: string, context: any = {}) {
+  render (name: string, context: any = {}) {
     const template = templates.get(name);
 
     if (!template) {
@@ -80,7 +80,7 @@ export default {
   /**
    * Sends email message via Nodemailer.
    */
-  send(message: any, options: any) {
+  send (message: any, options: any) {
     return transporter.sendMail({
       ...message,
       ...options,

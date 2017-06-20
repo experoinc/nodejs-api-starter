@@ -15,7 +15,7 @@
  *     Finished 'db:migrate' in 25ms
  */
 
-function run(task, action, ...args) {
+function run (task, action, ...args) {
   const command = process.argv[2];
   const taskName = command && !command.startsWith('-') ? `${task}:${command}` : task;
   const start = new Date();

@@ -23,7 +23,7 @@ const outputFields = {
   },
 };
 
-function validate(input, { t, user }) {
+function validate (input, { t, user }) {
   const errors = [];
   const data = {};
 
@@ -33,9 +33,11 @@ function validate(input, { t, user }) {
 
   if (typeof input.text === 'undefined' || input.text.trim() !== '') {
     errors.push({ key: 'text', message: t('The comment field cannot be empty.') });
-  } else if (!validator.isLength(input.text, { min: 20, max: 2000 })) {
+  }
+  else if (!validator.isLength(input.text, { min: 20, max: 2000 })) {
     errors.push({ key: 'text', message: t('The comment must be between 20 and 2000 characters long.') });
-  } else {
+  }
+  else {
     data.text = input.text;
   }
 
@@ -56,7 +58,7 @@ export const createComment = mutationWithClientMutationId({
     },
   },
   outputFields,
-  async mutateAndGetPayload(input, context) {
+  async mutateAndGetPayload (input, context) {
     const { t, user, comments } = context;
     const { data, errors } = validate(input, context);
 
@@ -96,7 +98,7 @@ export const updateComment = mutationWithClientMutationId({
     },
   },
   outputFields,
-  async mutateAndGetPayload(input, context) {
+  async mutateAndGetPayload (input, context) {
     const { t, user, comments } = context;
     const { type, id } = fromGlobalId(input.id);
 
@@ -109,7 +111,8 @@ export const updateComment = mutationWithClientMutationId({
 
     if (!comment) {
       errors.push({ key: '', message: 'Failed to save the comment. Please make sure that it exists.' });
-    } else if (comment.author_id !== user.id) {
+    }
+    else if (comment.author_id !== user.id) {
       errors.push({ key: '', message: 'You can only edit your own comments.' });
     }
 

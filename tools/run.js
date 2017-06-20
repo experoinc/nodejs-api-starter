@@ -89,7 +89,7 @@ module.exports = task('run', () => Promise.resolve()
   // Compile and launch the app in watch mode, restart it after each rebuild
   .then(() => build({
     watch: true,
-    onComplete() {
+    onComplete () {
       if (server) server.kill('SIGTERM');
       if (isDebug) {
         server = spawnServer();

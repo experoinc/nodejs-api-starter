@@ -32,7 +32,7 @@ passport.deserializeUser((user, done) => {
 
 // Creates or updates the external login credentials
 // and returns the currently authenticated user.
-async function login(req, provider, profile, tokens) {
+async function login (req, provider, profile, tokens) {
   let user;
 
   if (req.user) {
@@ -74,7 +74,8 @@ async function login(req, provider, profile, tokens) {
       tokens: JSON.stringify(tokens),
       profile: JSON.stringify(profile._json),
     });
-  } else {
+  }
+  else {
     await db.table('logins').where(loginKeys).update({
       username: profile.username,
       tokens: JSON.stringify(tokens),
@@ -101,7 +102,8 @@ passport.use(new GoogleStrategy({
   try {
     const user = await login(req, 'google', profile, { accessToken, refreshToken });
     done(null, user);
-  } catch (err) {
+  }
+  catch (err) {
     done(err);
   }
 }));
@@ -119,7 +121,8 @@ passport.use(new FacebookStrategy({
     profile.displayName = profile.displayName || `${profile.name.givenName} ${profile.name.familyName}`;
     const user = await login(req, 'facebook', profile, { accessToken, refreshToken });
     done(null, user);
-  } catch (err) {
+  }
+  catch (err) {
     done(err);
   }
 }));
@@ -137,7 +140,8 @@ passport.use(new TwitterStrategy({
     if (profile.emails && profile.emails.length) profile.emails[0].verified = true;
     const user = await login(req, 'twitter', profile, { token, tokenSecret });
     done(null, user);
-  } catch (err) {
+  }
+  catch (err) {
     done(err);
   }
 }));

@@ -25,7 +25,7 @@ export default new GraphQLObjectType({
 
     author: {
       type: new GraphQLNonNull(UserType),
-      resolve(parent, args, { users }) {
+      resolve (parent, args, { users }) {
         return users.load(parent.author_id);
       },
     },
@@ -44,35 +44,35 @@ export default new GraphQLObjectType({
 
     comments: {
       type: new GraphQLList(CommentType),
-      resolve(parent, args, { commentsByStory }) {
+      resolve (parent, args, { commentsByStory }) {
         return commentsByStory.load(parent.id);
       },
     },
 
     pointsCount: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve(parent, args, { storyPointsCount }) {
+      resolve (parent, args, { storyPointsCount }) {
         return storyPointsCount.load(parent.id);
       },
     },
 
     commentsCount: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve(parent, args, { storyCommentsCount }) {
+      resolve (parent, args, { storyCommentsCount }) {
         return storyCommentsCount.load(parent.id);
       },
     },
 
     createdAt: {
       type: new GraphQLNonNull(GraphQLString),
-      resolve(parent) {
+      resolve (parent) {
         return parent.created_at;
       },
     },
 
     updatedAt: {
       type: new GraphQLNonNull(GraphQLString),
-      resolve(parent) {
+      resolve (parent) {
         return parent.updated_at;
       },
     },

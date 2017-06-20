@@ -24,21 +24,21 @@ export default new GraphQLObjectType({
 
     displayName: {
       type: GraphQLString,
-      resolve(parent) {
+      resolve (parent) {
         return parent.display_name;
       },
     },
 
     imageUrl: {
       type: GraphQLString,
-      resolve(parent) {
+      resolve (parent) {
         return parent.image_url;
       },
     },
 
     emails: {
       type: new GraphQLList(EmailType),
-      resolve(parent, args, { user }) {
+      resolve (parent, args, { user }) {
         return user && parent.id === user.id ? parent.emails : null;
       },
     },

@@ -23,13 +23,14 @@ const server = app.listen(port, host, () => {
 });
 
 // Shutdown Node.js app gracefully
-function handleExit(options, err) {
+function handleExit (options, err) {
   if (options.cleanup) {
     const actions = [server.close, db.destroy, redis.quit];
     actions.forEach((close, i) => {
       try {
         close(() => { if (i === actions.length - 1) process.exit(); });
-      } catch (err) { if (i === actions.length - 1) process.exit(); }
+      }
+      catch (err) { if (i === actions.length - 1) process.exit(); }
     });
   }
   if (err) console.log(err.stack);
